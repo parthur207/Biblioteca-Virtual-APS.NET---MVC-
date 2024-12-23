@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Biblioteca_Virtual.Models
 {
+    [Table("Usuarios")]
     public class Usuario_Model
     {
 

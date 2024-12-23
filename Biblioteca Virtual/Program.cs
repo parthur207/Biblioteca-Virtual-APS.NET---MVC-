@@ -22,7 +22,7 @@ namespace Biblioteca_Virtual
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IUsuarios_Interface, Usuarios>();
+            builder.Services.AddScoped<IUsuarios_Interface, Usuarios_Features>();
             builder.Services.AddScoped<ILivro_Interface, Livro>();
 
             // Criação do app depois de configurar os serviços

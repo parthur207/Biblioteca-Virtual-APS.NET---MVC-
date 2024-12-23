@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biblioteca_Virtual.Models
 {
-    [Table("UsuariosLivros")]
-    public class UsuariosLivros_Model
+    [Table("Emprestimos")]
+    public class Emprestimos_Model
     {
         [Key]
         [Column("Id")]

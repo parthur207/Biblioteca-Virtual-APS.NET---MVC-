@@ -6,12 +6,12 @@ using System.Runtime.CompilerServices;
 
 namespace Biblioteca_Virtual.Serviços.Livros
 {
-    public class Livro : ILivro_Interface
+    public class Livro_Feature : ILivro_Interface
     {
 
         private readonly MeuDbContext _context;
 
-        public Livro(MeuDbContext context)
+        public Livro_Feature(MeuDbContext context)
         {
             _context = context;
         }

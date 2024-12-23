@@ -2,22 +2,23 @@
 using Biblioteca_Virtual.Models;
 using Biblioteca_Virtual.Serviços.Livros;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace Biblioteca_Virtual.Serviços
 {
-    public class Usuarios : Livro, IUsuarios_Interface
+    public class Usuarios_Features : Livro, IUsuarios_Interface
     {
 
         private readonly MeuDbContext _context;
 
-        Usuarios(MeuDbContext context)
+        Usuarios_Features(MeuDbContext context)
         {
             _context=context;
         }
 
-        public async Task<Resposta_Model<Usuario_Model>> Login()
+        public async Task<Resposta_Model<Usuario_Model>> Login(string Email, )
         {
-            Resposta_Model<Usuarios>
+            Resposta_Model<Usuarios_Features>
         }
         public async Task <Resposta_Model<UsuariosLivros_Model>> Pegar_Livro_Emprestado(int Usuario_Id, int Livro_Id) 
         {
@@ -28,16 +29,19 @@ namespace Biblioteca_Virtual.Serviços
                 bool val2 = await _context.Usuarios.AnyAsync(x => x.Quant_Livros_Posse <= 2); //Verificacao se o user possui mais de um livro
                 bool val3 = await _context.UsuariosLivros.AnyAsync(x=>x.Livro_Id.Equals(Livro_Id)); // Verificação se o Id_Livro está disponível para emprestimo
 
-                if(val1!=true && val2!=true && val3 != true)
+                var Livro = Buscar_Livro_Id(Livro_Id).Result.Dado;
+              
+                if (val1!=true && val2!=true && val3 != true)
                 {
                      resposta.Status = false;
                     return resposta;
-                    string mensagem = $"O livro {}";
+                    string mensagem = $"Empréstimo realizado com sucesso: Livro ({Livro}) - Usuário ({})";
                     return
                 }
 
 
-           
+
+
                 _context.UsuariosLivros.Add();
                 resposta.
             }

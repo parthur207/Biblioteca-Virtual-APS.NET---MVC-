@@ -14,6 +14,12 @@ namespace Biblioteca_Virtual.Models
         [Column("Nome")]
         public string Nome { get; set; }
 
+        [Column("Email")]
+        public string Email {  get; set; }
+
+        [Column("Senha")]
+        private string Senha {  get; set; }
+
         [Column("Matricula")]
         public string Matricula { get; set; }
 

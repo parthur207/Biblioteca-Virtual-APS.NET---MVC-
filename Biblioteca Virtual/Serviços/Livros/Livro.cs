@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace Biblioteca_Virtual.Serviços.Livros
 {
-    public class Livro : ILivroInterface
+    public class Livro : ILivro_Interface
     {
 
         private readonly MeuDbContext _context;
@@ -37,10 +37,27 @@ namespace Biblioteca_Virtual.Serviços.Livros
             }
         }
 
-        public Task<Resposta_Model<List<Livro_Model>>> Listar_Ano(int _Ano)
+        public async Task<Resposta_Model<List<Livro_Model>>> Listar_Ano(int _Ano)
         {
-            throw new NotImplementedException();
+            Resposta_Model<List<Livro_Model>> resposta=new Resposta_Model<List<Livro_Model>>();
+
+            try
+            {
+
+                var Livros_Ano = await _context.Livros.Where(x => x.Ano.Equals(_Ano)).ToListAsync();
+                resposta.Dado= Livros_Ano;
+                return resposta;
+            }
+            catch(Exception ex)
+            {
+                resposta.Mensagem=ex.Message;
+                resposta.Status = false;
+                return resposta;
+            }
         }
+
+           
+        
 
         public async Task<Resposta_Model<List<Livro_Model>>> Listar_Autor(string _Autor)
         {

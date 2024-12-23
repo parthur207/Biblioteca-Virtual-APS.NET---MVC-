@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_Virtual.Controllers
@@ -7,5 +8,14 @@ namespace Biblioteca_Virtual.Controllers
     [ApiController]
     public class Livro_Controller : ControllerBase
     {
+
+        [HttpGet]
+        [Authorize()]
+        public IActionResult Index()
+        {
+
+
+            return View();
+        }
     }
 }

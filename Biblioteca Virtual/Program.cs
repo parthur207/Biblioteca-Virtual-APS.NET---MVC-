@@ -22,8 +22,8 @@ namespace Biblioteca_Virtual
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IUsuariosInterface, Usuarios>();
-            builder.Services.AddScoped<ILivroInterface, Livro>();
+            builder.Services.AddScoped<IUsuarios_Interface, Usuarios>();
+            builder.Services.AddScoped<ILivro_Interface, Livro>();
 
             // Criação do app depois de configurar os serviços
             var app = builder.Build();

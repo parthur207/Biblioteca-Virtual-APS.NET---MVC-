@@ -19,7 +19,7 @@ namespace Biblioteca_Virtual.Models
         public string Email {  get; set; }
 
         [Column("Senha")]
-        private string Senha {  get; set; }
+        public string Senha {  get; protected set; }
 
         [Column("Matricula")]
         public string Matricula { get; set; }

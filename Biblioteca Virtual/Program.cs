@@ -9,7 +9,7 @@ namespace Biblioteca_Virtual
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -30,14 +30,19 @@ namespace Biblioteca_Virtual
             .AddEntityFrameworkStores<MeuDbContext>()
             .AddDefaultTokenProviders();
 
+            // Criação do app depois de configurar os serviços
             var app = builder.Build();
 
-            using (var scope = app.Services.CreateScope())
+            using (var scope =  app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                await Gerador_Papeis(services);
+                MeuDbContext.Gerador_Papeis(services);
             }
 
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+      .AddEntityFrameworkStores<MeuDbContext>()
+      .AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
@@ -45,8 +50,6 @@ namespace Biblioteca_Virtual
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-            // Criação do app depois de configurar os serviços
-            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

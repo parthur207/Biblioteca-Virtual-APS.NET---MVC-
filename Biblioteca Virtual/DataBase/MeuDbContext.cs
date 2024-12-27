@@ -14,22 +14,6 @@ namespace Biblioteca_Virtual.DataBase
         public DbSet<Livro_Model> Livros { get; set; }
         public DbSet<Emprestimos_Model> Emprestimos { get; set; }
 
-        public static async Task Gerador_Papeis(IServiceProvider serviceProvider)
-        {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-            string[] roles = { "Admin", "UsuarioComum" };
-
-            foreach (var role in roles)
-            {
-                if (!await roleManager.RoleExistsAsync(role))
-                {
-                    await roleManager.CreateAsync(new IdentityRole(role));
-                }
-            }
-        }
-
-
-
+      
     }
 }

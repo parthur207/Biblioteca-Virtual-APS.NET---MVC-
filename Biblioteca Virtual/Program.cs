@@ -1,6 +1,7 @@
 using Biblioteca_Virtual.DataBase;
 using Biblioteca_Virtual.Serviços;
 using Biblioteca_Virtual.Serviços.Livros;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 
@@ -25,18 +26,24 @@ namespace Biblioteca_Virtual
             builder.Services.AddScoped<IUsuarios_Interface, Usuarios_Features>();
             builder.Services.AddScoped<ILivro_Interface, Livro_Features>();
 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<MeuDbContext>()
+            .AddDefaultTokenProviders();
+
+            var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
             {
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequiredLength = 8;
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-            })
-                .AddEntityFrameworkStores<MeuDbContext>()
-                .AddDefaultTokenProviders();
+                var services = scope.ServiceProvider;
+                await Gerador_Papeis(services);
+            }
+
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             // Criação do app depois de configurar os serviços
             var app = builder.Build();

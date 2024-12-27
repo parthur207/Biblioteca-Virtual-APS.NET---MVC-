@@ -1,4 +1,5 @@
 ﻿using Biblioteca_Virtual.DataBase;
+using Biblioteca_Virtual.Identity;
 using Biblioteca_Virtual.Models;
 using Biblioteca_Virtual.Serviços.Livros;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace Biblioteca_Virtual.Serviços
 {
-    public class Usuarios_Features : Livro_Feature, IUsuarios_Interface
+    public class Usuarios_Features : Livro_Features, IUsuarios_Interface
     {
 
         private readonly MeuDbContext _context;

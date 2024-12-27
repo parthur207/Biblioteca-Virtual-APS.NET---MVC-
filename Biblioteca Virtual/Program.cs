@@ -23,7 +23,20 @@ namespace Biblioteca_Virtual
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IUsuarios_Interface, Usuarios_Features>();
-            builder.Services.AddScoped<ILivro_Interface, Livro>();
+            builder.Services.AddScoped<ILivro_Interface, Livro_Features>();
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 8;
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            })
+                .AddEntityFrameworkStores<MeuDbContext>()
+                .AddDefaultTokenProviders();
 
             // Criação do app depois de configurar os serviços
             var app = builder.Build();

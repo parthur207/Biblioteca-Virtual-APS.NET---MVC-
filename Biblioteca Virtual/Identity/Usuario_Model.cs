@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Biblioteca_Virtual.Models
+namespace Biblioteca_Virtual.Identity
 {
     [Table("Usuarios")]
-    public class Usuario_Model
+    public class Usuario_Identy
     {
 
         [Key]
@@ -16,10 +16,10 @@ namespace Biblioteca_Virtual.Models
         public string Nome { get; set; }
 
         [Column("Email")]
-        public string Email {  get; set; }
+        public string Email { get; set; }
 
         [Column("Senha")]
-        public string Senha {  get; protected set; }
+        public string Senha { get; protected set; }
 
         [Column("Matricula")]
         public string Matricula { get; set; }

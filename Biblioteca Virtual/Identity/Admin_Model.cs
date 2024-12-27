@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Biblioteca_Virtual.Models
+namespace Biblioteca_Virtual.Identity
 {
     [Table("Admin")]
-    public class Admin_Model
+    public class Admin_Identy: I
     {
 
         [Key]

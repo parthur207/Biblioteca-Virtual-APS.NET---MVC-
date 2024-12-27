@@ -10,19 +10,33 @@ namespace Biblioteca_Virtual.Models
         [Column("Id")]
         public int Id { get; set; }
 
+        [Required]
         [Column("Livro")]
-        public string Livro { get; set; }
+        public string Nome_Livro { get; set; }
 
+
+        [Required]
         [Column("Editora")]
         public string Editora { get; set; }
 
+        [Required]
         [Column("Autor")]
         public string Autor { get; set; }
 
+        [Required]
         [Column("Ano")]
         public int Ano { get; set; }
 
         [Column("Emprestado")]
-        public bool Emprestado { get; set; }
+        public bool Emprestado { get; set; } = false;
     }
+
+    public enum AtributosLivro
+    {
+        Nome_Livro=1,
+        Editora=2,
+        Autor=3,
+        Ano=4,
+    }
+
 }

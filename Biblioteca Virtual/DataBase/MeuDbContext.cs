@@ -12,8 +12,5 @@ namespace Biblioteca_Virtual.DataBase
         {
         }
         public DbSet<Livro_Model> Livros { get; set; }
-        public DbSet<Emprestimos_Model> Emprestimos { get; set; }
-
-      
     }
 }

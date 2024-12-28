@@ -15,7 +15,7 @@ namespace Biblioteca_Virtual.Serviços.Livros
         Task<Resposta_Model<List<Livro_Model>>> Listar_Livros_Autor(string Autor);
         Task<Resposta_Model<List<Livro_Model>>> Listar_Livros_Editora(string Editora);
         Task<Resposta_Model<List<Livro_Model>>> Listar_Livros_Ano(int Ano);
-        Task<Resposta_Model<Livro_Model>> Excluir_Livro(Livro_Model Livro);
+        Task<Resposta_Model<Livro_Model>> Excluir_Livro(int LivroId);
         
     }
 }

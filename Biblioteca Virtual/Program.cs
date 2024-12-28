@@ -24,12 +24,7 @@ namespace Biblioteca_Virtual
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IUsuarios_Interface, Usuarios_Features>();
             builder.Services.AddScoped<ILivro_Interface, Livro_Features>();
-
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<MeuDbContext>()
-            .AddDefaultTokenProviders();
 
             // Criação do app depois de configurar os serviços
             var app = builder.Build();
@@ -37,7 +32,7 @@ namespace Biblioteca_Virtual
             using (var scope =  app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                await Roles.Gerador_Papeis(services);
+                await Roles.GeradorRoles(services);
             }
 
 

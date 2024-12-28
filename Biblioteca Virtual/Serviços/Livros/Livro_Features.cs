@@ -43,11 +43,11 @@ namespace Biblioteca_Virtual.Serviços.Livros
         }
 
 
-        public async Task<Resposta_Model<Livro_Model>> Excluir_Livro(Livro_Model Livro)
+        public async Task<Resposta_Model<Livro_Model>> Excluir_Livro(int LivroId)
         {
             Resposta_Model<Livro_Model> resposta= new Resposta_Model<Livro_Model>();
 
-            var Request = await Buscar_Livro_Id(Livro.Id);
+            var Request = await Buscar_Livro_Id(LivroId);
 
             if (Request.Status==false)
             {
@@ -57,7 +57,7 @@ namespace Biblioteca_Virtual.Serviços.Livros
 
             try
             {
-                _context.Livros.Remove(Livro);
+                _context.Livros.Remove(Request.Dado);
 
                 resposta.Mensagem= "Livro excluído com sucesso.";
                 return resposta;
@@ -71,7 +71,7 @@ namespace Biblioteca_Virtual.Serviços.Livros
         }
 
 
-        public async Task<Resposta_Model<Livro_Model>> Atualizar_Atributo(int IdLivro, AtributosLivro AtributoId, string NovoAtributo)
+        public async Task<Resposta_Model<Livro_Model>> Atualizar_Atributo(int IdLivro, AtributosLivro TipoAtributo, string NovoAtributo)
         {
             Resposta_Model<Livro_Model> resposta = new Resposta_Model<Livro_Model>();
 
@@ -87,7 +87,7 @@ namespace Biblioteca_Virtual.Serviços.Livros
             {
                 var Livro_Atualizado = await _context.Livros.FirstOrDefaultAsync(x => x.Id == IdLivro);
 
-                switch (AtributoId)
+                switch (TipoAtributo)
                 {
                     case AtributosLivro.Nome_Livro://1
                         Livro_Atualizado.Nome_Livro = NovoAtributo;
@@ -125,15 +125,15 @@ namespace Biblioteca_Virtual.Serviços.Livros
         }
 
 
-        public async Task<Resposta_Model<Livro_Model>> Buscar_Livro_Id(int id)
+        public async Task<Resposta_Model<Livro_Model>> Buscar_Livro_Id(int LivroId)
         {
             Resposta_Model<Livro_Model> resposta = new Resposta_Model<Livro_Model>();
 
             try
             {
-                var Livro_Id = await _context.Livros.FirstOrDefaultAsync(x => x.Id == id);
+                var Livro = await _context.Livros.FirstOrDefaultAsync(x => x.Id == LivroId);
 
-                resposta.Dado = Livro_Id;
+                resposta.Dado = Livro;
 
                 return resposta;
             }

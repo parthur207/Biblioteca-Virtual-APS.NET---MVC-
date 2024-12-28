@@ -4,7 +4,7 @@ namespace Biblioteca_Virtual.Identity
 {
     public class Roles
     {
-        public static async Task Gerador_Papeis(ServiceProvider serviceProvider)
+        public static async Task GeradorRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 

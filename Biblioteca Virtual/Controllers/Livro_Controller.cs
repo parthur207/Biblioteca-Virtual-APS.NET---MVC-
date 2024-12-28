@@ -19,7 +19,7 @@ namespace Biblioteca_Virtual.Controllers
         }
 
 
-        [Authorize("Usuario")]
+        [Authorize("Admin")]
         [HttpPost("AdicionarLivro")]
         public async Task<ActionResult<Resposta_Model<Livro_Model>>> AdicionarLivro(Livro_Model NovoLivro)
         {
@@ -32,7 +32,48 @@ namespace Biblioteca_Virtual.Controllers
             return BadRequest(Request.Mensagem);
         }
 
-        [Authorize("Usuario")]
+        [Authorize("Admin")]
+        [HttpDelete("DeletarLivro")]
+        public async Task<ActionResult<Resposta_Model<Livro_Model>>> DeletarLivro(int LivroId)
+        {
+
+            var Request = await _livroInterface.Excluir_Livro(LivroId);
+
+
+            if (Request.Status == true)
+            {
+                return Ok(Request.Mensagem);
+            }
+            return BadRequest(Request.Mensagem);
+        }
+
+        [Authorize("Admin")]
+        [HttpPatch("AtualizarAtributo")]
+        public async Task<ActionResult<Livro_Model>> AtualizarAtributo(int LivroId, AtributosLivro TipoAtributo, string NovoAtributo)
+        {
+
+            var Request = await _livroInterface.Atualizar_Atributo(LivroId, TipoAtributo, NovoAtributo);
+            if (Request.Status==true)
+            {
+                return Ok(Request.Mensagem);
+            }
+            return BadRequest(Request.Mensagem);
+        }
+
+
+        [HttpGet("ListarTodosOsLivros")]
+        public async Task <ActionResult<List<Livro_Model>>> ListarTodosOsLivros()
+        {
+            var Request=await _livroInterface.Listar_Todos_Livros();
+
+            if (Request.Status==true)
+            {
+                return Ok(Request.Dado);
+            }
+            return BadRequest(Request.Mensagem);    
+        } 
+
+    
         [HttpGet("BuscarLivrosDisponiveis")]
         public async Task<ActionResult<Resposta_Model<List<Livro_Model>>>> BuscarLivrosDisponiveis()
         {
@@ -44,7 +85,7 @@ namespace Biblioteca_Virtual.Controllers
             return BadRequest(Request.Mensagem);
         }
 
-        [Authorize("Usuario")]
+
         [HttpGet("BuscarLivroPorId")]
         public async Task<ActionResult<Resposta_Model<Livro_Model>>> BuscarLivroPorId(int LivroId)
         {
@@ -58,23 +99,61 @@ namespace Biblioteca_Virtual.Controllers
         }
 
 
-        [Authorize("Usuario")]
         [HttpGet("BuscarLivrosPorAutor")]
-        public async Task <ActionResult<Resposta_Model<List<Livro_Model>>>> BuscarLivrosPorAutor(string Autor)
+        public async Task<ActionResult<Resposta_Model<List<Livro_Model>>>> BuscarLivrosPorAutor(string Autor)
         {
-            var Request= await _livroInterface.Listar_Livros_Autor(Autor);
+            var Request = await _livroInterface.Listar_Livros_Autor(Autor);
+
             if (Request.Status == true)
             {
                 return Ok(Request.Dado);
             }
-            return BadRequest(Request.Mensagem);    
+            return BadRequest(Request.Mensagem);
         }
 
-        [Authorize("Usuario")]
-        [HttpGet("BuscarLivrosPorEditora")]
 
-        [Authorize("Usuario")]
+        [HttpGet("BuscarLivrosPorEditora")]
+        public async Task <ActionResult<List<Livro_Model>>> BuscarLivrosPorEditora(string Editora)
+        {
+            var Request= await _livroInterface.Listar_Livros_Editora(Editora);
+
+            if (Request.Status == true)
+            {
+                return Ok(Request.Dado);
+            }    
+            return BadRequest(Request.Mensagem);
+        }
+
+
         [HttpGet("BuscarLivrosPorAno")]
+        public async Task <ActionResult<List<Livro_Model>>> BuscarLivrosPorAno(int Ano)
+        {
+
+            var Request = await _livroInterface.Listar_Livros_Ano(Ano);
+
+            if (Request.Status == true)
+            {
+                return Ok(Request.Dado);
+            }
+            return BadRequest(Request.Mensagem);
+        }
+
+
+        [Authorize("Admin")]
+        [HttpGet("LivrosEmprestados")]
+        public async Task <ActionResult<List<Livro_Model>>> BuscarLivrosEmprestados()
+        {
+            var Request = await _livroInterface.Listar_Emprestados();
+
+            if (Request.Status == true)
+            {
+                return Ok(Request.Dado);
+            }
+            return BadRequest(Request.Mensagem);
+        }
+
+
+
 
 
 

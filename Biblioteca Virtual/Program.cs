@@ -1,4 +1,5 @@
 using Biblioteca_Virtual.DataBase;
+using Biblioteca_Virtual.Identity;
 using Biblioteca_Virtual.Serviços;
 using Biblioteca_Virtual.Serviços.Livros;
 using Microsoft.AspNetCore.Identity;
@@ -36,7 +37,7 @@ namespace Biblioteca_Virtual
             using (var scope =  app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                MeuDbContext.Gerador_Papeis(services);
+                await Roles.Gerador_Papeis(services);
             }
 
 

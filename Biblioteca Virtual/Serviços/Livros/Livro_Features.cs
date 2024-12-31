@@ -1,5 +1,4 @@
 ﻿using Biblioteca_Virtual.DataBase;
-using Biblioteca_Virtual.Migrations;
 using Biblioteca_Virtual.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;

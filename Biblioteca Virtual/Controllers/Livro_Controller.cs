@@ -1,4 +1,5 @@
-﻿using Biblioteca_Virtual.Models;
+﻿using Biblioteca_Virtual.Identity;
+using Biblioteca_Virtual.Models;
 using Biblioteca_Virtual.Serviços.Livros;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +20,7 @@ namespace Biblioteca_Virtual.Controllers
         }
 
 
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("AdicionarLivro")]
         public async Task<ActionResult<Resposta_Model<Livro_Model>>> AdicionarLivro(Livro_Model NovoLivro)
         {
@@ -32,7 +33,7 @@ namespace Biblioteca_Virtual.Controllers
             return BadRequest(Request.Mensagem);
         }
 
-        [Authorize("Admin")]
+        [Authorize(Roles ="Admin")]
         [HttpDelete("DeletarLivro")]
         public async Task<ActionResult<Resposta_Model<Livro_Model>>> DeletarLivro(int LivroId)
         {
@@ -47,7 +48,7 @@ namespace Biblioteca_Virtual.Controllers
             return BadRequest(Request.Mensagem);
         }
 
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPatch("AtualizarAtributo")]
         public async Task<ActionResult<Livro_Model>> AtualizarAtributo(int LivroId, AtributosLivro TipoAtributo, string NovoAtributo)
         {
@@ -139,7 +140,7 @@ namespace Biblioteca_Virtual.Controllers
         }
 
 
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("LivrosEmprestados")]
         public async Task <ActionResult<List<Livro_Model>>> BuscarLivrosEmprestados()
         {

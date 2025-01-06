@@ -35,15 +35,29 @@ namespace Biblioteca_Virtual
                 await Roles.GeradorRoles(services);
             }
 
-
+            // Configuração do identity, vinculando todos os usuarios a uma role e armazenamento no banco de dados "MeuDbContext"
             builder.Services.AddIdentity<IdentityUser, IdentityRole>()
       .AddEntityFrameworkStores<MeuDbContext>()
       .AddDefaultTokenProviders();
 
+
+            //Implementação dos requisitos de senha
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 6;
+            });
+
+
+            //Dimensionamento para a página de login/cadastro/logout em caso de bloqueio de acesso
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.LoginPath = "/api/Account/Login";
+                options.LogoutPath = "/api/Account/Logout";
+                options.AccessDeniedPath = "/api/Account/AccessDenied";
             });
 
 
@@ -55,9 +69,9 @@ namespace Biblioteca_Virtual
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
-
             app.Run();
         }
     }
